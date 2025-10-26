@@ -13,31 +13,53 @@ Scholarship Tracker is a Flask web app with SQLite and Bootstrap that helps stud
  
 ### Dependencies
  
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-* List pip install instructions.
- 
+Before running the project, ensure you have:
+*  Python 3.10+ installed
+* pip package manager
+* SQLite (bundled with Python)
+* Required Python packages (install via requirements.txt)
+
+
 ### Installing
  
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+Clone the repository:
+```
+git clone https://github.com/fhsuae/miniproject3AlexanderEscobedo-
+```
+Create a virtual environment and activate it: 
+```
+python -m venv venv
+```
+Now run this on your machine to activate the environment:
+```
+ Windows
+venv\Scripts\activate
+
+ macOS/Linux
+source venv/bin/activate
+```
+Install dependencies:
+```
+pip install -r requirements.txt
+```
  
 ### Executing program
- 
-* How to run the program
-* Step-by-step bullets
-```
-pip install -r requirements 
-```
-* Must run this or code will not work 
+
+* Before running the app, initialize the SQLite database using Flask CLI:
 ```
 flask --app flaskr init-db
 ```
+This will create the user and scholarship tables in instance/app.sqlite.
 
+* Start the Flask development server:
 ```
 flask --app flaskr run
 ```
-
+Open your web browser and go to:
+```
+http://127.0.0.1:5000/
+```
+### Using an IDE(Optional)
 
 If you are using an IDE like PyCharm or similar:
 
@@ -64,10 +86,9 @@ Alexander Escobedo
 
  
 ## Acknowledgments
- 
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+
+* [Flask Documentation](https://flask.palletsprojects.com/en/stable/)
+* [SQLite Documentation](https://sqlite.org/docs.html)
+* [Bootstrap Documentation](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
+* [The Official Flask Tutorial](https://flask.palletsprojects.com/en/stable/tutorial/)– Project structure and authentication adapted from this tutorial
+
