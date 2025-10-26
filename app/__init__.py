@@ -1,3 +1,8 @@
+# Name: Alexander Escobedo
+# Class: INF601 - Advanced Programming in Python
+# Project: Mini Project 3 - Scholarship Tracker
+
+
 import os
 from flask import Flask
 

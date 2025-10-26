@@ -9,7 +9,8 @@ Miniproject 3 Scholarship Tracker
  
 ## Description
  
-Scholarship Tracker is a Flask web app with SQLite and Bootstrap that helps students manage scholarships efficiently. Users can securely view, add, edit, and delete scholarships, track key details like deadlines, amounts, and status, and access detailed information. The responsive interface includes modals and form validation, providing a simple, intuitive workflow to stay organized and streamline the scholarship application process.## Getting Started
+Scholarship Tracker is a Flask web app with SQLite and Bootstrap that helps students manage scholarships efficiently. Users can securely view, add, edit, and delete scholarships, track key details like deadlines, amounts, and status, and access detailed information. The responsive interface includes modals and form validation, providing a simple, intuitive workflow to stay organized and streamline the scholarship application process.
+## Getting Started
  
 ### Dependencies
  

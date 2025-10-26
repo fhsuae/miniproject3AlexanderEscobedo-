@@ -1,6 +1,12 @@
+# Name: Alexander Escobedo
+# Class: INF601 - Advanced Programming in Python
+# Project: Mini Project 3 - Scholarship Tracker
+
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, g
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.db import get_db
+from functools import wraps
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -40,6 +46,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        remember = request.form.get('remember')  # 'on' if checked
         db = get_db()
         error = None
         user = db.execute(
@@ -54,6 +61,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
+            session.permanent = bool(remember)  # make session permanent if "Remember Me" checked
             return redirect(url_for('scholarship.index'))
 
         flash(error)
@@ -77,9 +85,6 @@ def logout():
     session.clear()
     return redirect(url_for('auth.login'))
 
-
-from functools import wraps
-from flask import g, redirect, url_for, flash
 
 def login_required(view):
     @wraps(view)

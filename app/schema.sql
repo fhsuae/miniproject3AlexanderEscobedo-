@@ -14,5 +14,6 @@ CREATE TABLE scholarship (
     amount INTEGER NOT NULL,
     deadline TEXT NOT NULL,
     status TEXT NOT NULL,
+    notes TEXT,
     FOREIGN KEY (user_id) REFERENCES user (id)
 );
