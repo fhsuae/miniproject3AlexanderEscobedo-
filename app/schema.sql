@@ -11,9 +11,8 @@ CREATE TABLE scholarship (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     name TEXT NOT NULL,
-    amount REAL,
-    deadline DATE,
-    status TEXT,
-    notes TEXT,
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    amount INTEGER NOT NULL,
+    deadline TEXT NOT NULL,
+    status TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user (id)
 );

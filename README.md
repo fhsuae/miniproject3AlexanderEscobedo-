@@ -38,6 +38,20 @@ flask --app flaskr init-db
 flask --app flaskr run
 ```
 
+
+If you are using an IDE like PyCharm or similar:
+
+* Select the current file in the project.
+
+* Go to Edit Configurations.
+
+* Click Add New Configuration and choose Flask Server.
+
+* On the right-hand side, select the script you want to run — in this project, choose app/.
+
+* Use the Play button to start the Flask development server.
+
+This ensures the IDE knows which Flask app to execute and allows you to run the project with one click.
  
 ## Authors
  

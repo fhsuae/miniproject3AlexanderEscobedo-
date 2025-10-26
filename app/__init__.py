@@ -8,10 +8,10 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, 'app.sqlite'),
     )
 
-    if test_config:
-        app.config.from_mapping(test_config)
-    else:
+    if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
+    else:
+        app.config.from_mapping(test_config)
 
     try:
         os.makedirs(app.instance_path)
@@ -26,6 +26,10 @@ def create_app(test_config=None):
 
     from . import scholarship
     app.register_blueprint(scholarship.bp)
-    app.add_url_rule('/', endpoint='index')
+
+    from flask import redirect, url_for
+    @app.route('/')
+    def index():
+        return redirect(url_for('scholarship.index'))
 
     return app
