@@ -142,12 +142,16 @@ def search():
 @bp.route('/export')
 @login_required
 def export():
-    """Export all scholarships as a CSV file."""
+    """Export all scholarships as a CSV file, require at least one scholarship."""
     db = get_db()
     scholarships = db.execute(
         'SELECT name, amount, deadline, status, notes FROM scholarship WHERE user_id = ? ORDER BY deadline ASC',
         (g.user['id'],)
     ).fetchall()
+
+    if not scholarships:
+        flash('You must create at least one scholarship before exporting.')
+        return redirect(url_for('scholarship.index'))
 
     def generate_csv():
         yield 'Name,Amount,Deadline,Status,Notes\n'
