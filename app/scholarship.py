@@ -2,12 +2,13 @@
 # Class: INF601 - Advanced Programming in Python
 # Project: Mini Project 3 - Scholarship Tracker
 
-
 from flask import Blueprint, render_template, request, redirect, url_for, flash, g
 from app.db import get_db
 from app.auth import login_required
+from flask import abort
 
 bp = Blueprint('scholarship', __name__, url_prefix='/scholarship')
+
 
 @bp.route('/')
 @login_required
@@ -18,6 +19,7 @@ def index():
         (g.user['id'],)
     ).fetchall()
     return render_template('scholarship/index.html', scholarships=scholarships)
+
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -38,15 +40,16 @@ def create():
         return redirect(url_for('scholarship.index'))
     return render_template('scholarship/create.html')
 
+
 def get_scholarship(id):
     db = get_db()
     scholarship = db.execute(
         'SELECT * FROM scholarship WHERE id = ? AND user_id = ?', (id, g.user['id'])
     ).fetchone()
     if scholarship is None:
-        flash("Scholarship not found.")
-        return redirect(url_for('scholarship.index'))
+        abort(404)
     return scholarship
+
 
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
@@ -68,6 +71,7 @@ def update(id):
         flash('Scholarship updated successfully.')
         return redirect(url_for('scholarship.index'))
     return render_template('scholarship/update.html', scholarship=scholarship)
+
 
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
