@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>Export Scholarships</h1>
+{% endblock %}
+
+{% block content %}
+<p>Click the button below to download all your scholarships as a CSV file.</p>
+<a href="{{ url_for('scholarship.export') }}" class="btn btn-success">Download CSV</a>
+{% endblock %}

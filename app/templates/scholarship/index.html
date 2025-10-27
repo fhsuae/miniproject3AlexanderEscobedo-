@@ -5,9 +5,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between mb-3">
+<div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
   <a class="btn btn-primary" href="{{ url_for('scholarship.create') }}">Add Scholarship</a>
   <a class="btn btn-info" href="{{ url_for('scholarship.stats') }}">View Stats</a>
+  <a class="btn btn-secondary" href="{{ url_for('scholarship.search') }}">Search Scholarships</a>
+  <a class="btn btn-success" href="{{ url_for('scholarship.export') }}">Export CSV</a>
 </div>
 
 <div class="row">

@@ -2,10 +2,11 @@
 # Class: INF601 - Advanced Programming in Python
 # Project: Mini Project 3 - Scholarship Tracker
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash, g
+from flask import Blueprint, render_template, request, redirect, url_for, flash, g, Response
 from app.db import get_db
 from app.auth import login_required
 from flask import abort
+import csv
 
 bp = Blueprint('scholarship', __name__, url_prefix='/scholarship')
 
@@ -110,3 +111,48 @@ def stats():
         'SELECT COUNT(*) as total FROM scholarship WHERE user_id = ?', (g.user['id'],)
     ).fetchone()['total']
     return render_template('scholarship/stats.html', stats=stats_data, total=total)
+
+
+@bp.route('/search', methods=('GET', 'POST'))
+@login_required
+def search():
+    """Search scholarships by name or status."""
+    db = get_db()
+    scholarships = []
+
+    if request.method == 'POST':
+        keyword = request.form.get('keyword', '').strip()
+        status = request.form.get('status', '')
+        query = 'SELECT * FROM scholarship WHERE user_id = ?'
+        params = [g.user['id']]
+
+        if keyword:
+            query += ' AND name LIKE ?'
+            params.append(f'%{keyword}%')
+        if status and status != 'All':
+            query += ' AND status = ?'
+            params.append(status)
+
+        query += ' ORDER BY deadline ASC'
+        scholarships = db.execute(query, params).fetchall()
+
+    return render_template('scholarship/search.html', scholarships=scholarships)
+
+
+@bp.route('/export')
+@login_required
+def export():
+    """Export all scholarships as a CSV file."""
+    db = get_db()
+    scholarships = db.execute(
+        'SELECT name, amount, deadline, status, notes FROM scholarship WHERE user_id = ? ORDER BY deadline ASC',
+        (g.user['id'],)
+    ).fetchall()
+
+    def generate_csv():
+        yield 'Name,Amount,Deadline,Status,Notes\n'
+        for s in scholarships:
+            yield f"{s['name']},{s['amount']},{s['deadline']},{s['status']},{s['notes'] or ''}\n"
+
+    return Response(generate_csv(), mimetype='text/csv',
+                    headers={'Content-Disposition': 'attachment; filename=scholarships.csv'})

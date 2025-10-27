@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>Search Scholarships</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="row g-3 mb-3">
+  <div class="col-md-6">
+    <input type="text" name="keyword" class="form-control" placeholder="Search by name">
+  </div>
+  <div class="col-md-4">
+    <select name="status" class="form-select">
+      <option value="All">All Statuses</option>
+      <option value="Not Started">Not Started</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Submitted">Submitted</option>
+      <option value="Awarded">Awarded</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-primary w-100">Search</button>
+  </div>
+</form>
+
+<div class="row">
+  {% for s in scholarships %}
+    <div class="col-md-6 col-lg-4 mb-3">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ s['name'] }}</h5>
+          <p class="card-text">
+            <strong>Amount:</strong> ${{ s['amount'] }}<br>
+            <strong>Deadline:</strong> {{ s['deadline'] }}<br>
+            <strong>Status:</strong> {{ s['status'] }}<br>
+            {% if s['notes'] %}
+              <strong>Notes:</strong> {{ s['notes'] }}
+            {% endif %}
+          </p>
+          <a href="{{ url_for('scholarship.update', id=s['id']) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <p>No scholarships found.</p>
+  {% endfor %}
+</div>
+{% endblock %}
