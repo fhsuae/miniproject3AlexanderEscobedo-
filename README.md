@@ -34,7 +34,7 @@ Before running the project, ensure you have:
  
 Clone the repository:
 ```
-git clone https://github.com/fhsuae/miniproject3AlexanderEscobedo-
+git clone https://github.com/fhsuae/miniproject3AlexanderEscobedo-.git
 ```
 Create and activate a virtual environment:
 
