@@ -1,27 +1,29 @@
 {% extends 'base.html' %}
 
+{% block title %}Scholarship Stats{% endblock %}
+
 {% block header %}
-<h1>Scholarship Stats</h1>
+<h1>Scholarship Statistics</h1>
 {% endblock %}
 
 {% block content %}
-<div class="row">
-  <div class="col-md-6">
-    <div class="card shadow p-4 mb-3">
-      <h5>Status Summary</h5>
-      <ul>
+<div class="card mb-3 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">Total Scholarships: {{ total }}</h5>
+    {% if status_counts %}
+      <ul class="list-group">
         {% for status, count in status_counts.items() %}
-          <li>{{ status }}: {{ count }}</li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ status }}
+            <span class="badge bg-primary rounded-pill">{{ count }}</span>
+          </li>
         {% endfor %}
       </ul>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card shadow p-4 mb-3">
-      <h5>Total Scholarships</h5>
-      <p>{{ total_scholarships }}</p>
-    </div>
+    {% else %}
+      <p>No scholarships found.</p>
+    {% endif %}
   </div>
 </div>
-<a href="{{ url_for('scholarship.index') }}" class="btn btn-secondary">Back</a>
+
+<a href="{{ url_for('scholarship.index') }}" class="btn btn-secondary">Back to Scholarships</a>
 {% endblock %}

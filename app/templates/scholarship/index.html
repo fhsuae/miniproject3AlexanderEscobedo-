@@ -5,14 +5,21 @@
 {% endblock %}
 
 {% block content %}
-<a class="btn btn-primary mb-3" href="{{ url_for('scholarship.create') }}">Add Scholarship</a>
+<div class="d-flex justify-content-between mb-3">
+  <a class="btn btn-primary" href="{{ url_for('scholarship.create') }}">Add Scholarship</a>
+  <a class="btn btn-info" href="{{ url_for('scholarship.stats') }}">View Stats</a>
+</div>
 
 <div class="row">
   {% for s in scholarships %}
     <div class="col-md-6 col-lg-4 mb-3">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
-          <h5 class="card-title">{{ s['name'] }}</h5>
+          <h5 class="card-title">
+            <a href="{{ url_for('scholarship.detail', id=s['id']) }}">
+              {{ s['name'] }}
+            </a>
+          </h5>
           <p class="card-text">
             <strong>Amount:</strong> ${{ s['amount'] }}<br>
             <strong>Deadline:</strong> {{ s['deadline'] }}<br>
@@ -21,10 +28,12 @@
               <strong>Notes:</strong> {{ s['notes'] }}
             {% endif %}
           </p>
-          <a href="{{ url_for('scholarship.update', id=s['id']) }}" class="btn btn-sm btn-outline-primary">Edit</a>
-          <form action="{{ url_for('scholarship.delete', id=s['id']) }}" method="post" class="d-inline">
-            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-          </form>
+          <div class="d-flex gap-2">
+            <a href="{{ url_for('scholarship.update', id=s['id']) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+            <form action="{{ url_for('scholarship.delete', id=s['id']) }}" method="post" class="d-inline">
+              <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
