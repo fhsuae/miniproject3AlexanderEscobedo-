@@ -36,18 +36,16 @@ Clone the repository:
 ```
 git clone https://github.com/fhsuae/miniproject3AlexanderEscobedo-
 ```
-Create a virtual environment and activate it: 
-```
-python -m venv venv
-```
-Now run this on your machine to activate the environment:
+Create and activate a virtual environment:
 
 Windows:
 ```
+python -m venv venv
 venv\Scripts\activate
 ```
-MacOS/Linux:
+macOS/Linux:
 ```
+python3 -m venv venv
 source venv/bin/activate
 ```
 Install dependencies:
@@ -59,7 +57,7 @@ pip install -r requirements.txt
 
 * Before running the app, initialize the SQLite database using Flask CLI:
 ```
-flask --app flaskr init-db
+flask --app app init-db
 ```
 This command will:
 * Create the user and scholarship tables
@@ -69,29 +67,27 @@ This command will:
 
 Start the Flask development server:
 ```
-flask --app flaskr run
+flask --app app run
 ```
 Open your web browser and go to:
 ```
 http://127.0.0.1:5000/
 ```
-* You should see the Scholarship Tracker homepage.
+You should see the Scholarship Tracker homepage.
 ### Using an IDE(Optional)
 
-If you are using an IDE like PyCharm or similar:
+If you are using an IDE like PyCharm or VS Code:
 
-* Select the current file in the project.
+* Open the project folder.
 
-* Go to Edit Configurations.
+* Go to Run Configurations → Add New Configuration → Flask Server.
 
-* Click Add New Configuration and choose Flask Server.
+* Set the target script to the app package.
 
-* On the right-hand side, select the script you want to run — in this project, choose app/.
+* Click the Run ▶️ button to start the development server.
 
-* Use the Play button to start the Flask development server.
+This lets you run and debug the Flask app with one click.
 
-This ensures the IDE knows which Flask app to execute and allows you to run the project with one click.
- 
 ## Project Pages
 The app contains the following pages:
 * Home / Index – View all scholarships

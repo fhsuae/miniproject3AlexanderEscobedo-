@@ -116,9 +116,8 @@ def stats():
 @bp.route('/search', methods=('GET', 'POST'))
 @login_required
 def search():
-    """Search scholarships by name or status."""
+    """Search scholarships by name or status. Show all on GET."""
     db = get_db()
-    scholarships = []
 
     if request.method == 'POST':
         keyword = request.form.get('keyword', '').strip()
@@ -134,9 +133,14 @@ def search():
             params.append(status)
 
         query += ' ORDER BY deadline ASC'
-        scholarships = db.execute(query, params).fetchall()
+    else:
+        # On GET, show all scholarships for the logged-in user
+        query = 'SELECT * FROM scholarship WHERE user_id = ? ORDER BY deadline ASC'
+        params = [g.user['id']]
 
+    scholarships = db.execute(query, params).fetchall()
     return render_template('scholarship/search.html', scholarships=scholarships)
+
 
 
 @bp.route('/export')
