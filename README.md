@@ -75,6 +75,7 @@ Open your web browser and go to:
 http://127.0.0.1:5000/
 ```
 Note: Register a user account via the Register page before adding scholarships.
+
 You should see the Scholarship Tracker homepage.
 ### Using an IDE(Optional)
 
