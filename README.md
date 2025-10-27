@@ -5,14 +5,23 @@
  
 # Project Title
  
-Miniproject 3 Scholarship Tracker 
+**Miniproject 3 Scholarship Tracker**
  
 ## Description
  
-Scholarship Tracker is a Flask web app with SQLite and Bootstrap that helps students manage scholarships efficiently. Users can securely view, add, edit, and delete scholarships, track key details like deadlines, amounts, and status, and access detailed information. The responsive interface includes modals and form validation, providing a simple, intuitive workflow to stay organized and streamline the scholarship application process.
+Scholarship Tracker is a Flask web application using SQLite and Bootstrap that helps students manage scholarships efficiently.  
+
+Key features include:  
+* Secure user registration and login  
+* Add, edit, delete, and view scholarships  
+* Track scholarship details such as name, amount, deadline, status, and notes  
+* Statistics page showing total scholarships and status breakdown  
+* Responsive interface with Bootstrap styling, modals, and form validation  
+
+This project provides a simple, intuitive workflow for students to stay organized and streamline their scholarship application process.
 ## Getting Started
  
-### Dependencies
+### Prerequisites
  
 Before running the project, ensure you have:
 *  Python 3.10+ installed
@@ -32,11 +41,13 @@ Create a virtual environment and activate it:
 python -m venv venv
 ```
 Now run this on your machine to activate the environment:
-```
- Windows
-venv\Scripts\activate
 
- macOS/Linux
+Windows:
+```
+venv\Scripts\activate
+```
+MacOS/Linux:
+```
 source venv/bin/activate
 ```
 Install dependencies:
@@ -50,9 +61,13 @@ pip install -r requirements.txt
 ```
 flask --app flaskr init-db
 ```
-This will create the user and scholarship tables in instance/app.sqlite.
+This command will:
+* Create the user and scholarship tables
+* Set up foreign key relationships
+* Store the database in instance/app.sqlite
 
-* Start the Flask development server:
+
+Start the Flask development server:
 ```
 flask --app flaskr run
 ```
@@ -60,6 +75,7 @@ Open your web browser and go to:
 ```
 http://127.0.0.1:5000/
 ```
+* You should see the Scholarship Tracker homepage.
 ### Using an IDE(Optional)
 
 If you are using an IDE like PyCharm or similar:
@@ -76,6 +92,16 @@ If you are using an IDE like PyCharm or similar:
 
 This ensures the IDE knows which Flask app to execute and allows you to run the project with one click.
  
+## Project Pages
+The app contains the following pages:
+* Home / Index – View all scholarships
+* Add Scholarship – Form to create a new scholarship
+* Edit Scholarship – Update existing scholarship details
+* Scholarship Details – View detailed information about a scholarship
+* Statistics – View total scholarships and status breakdown
+
+
+
 ## Authors
  
 Alexander Escobedo
