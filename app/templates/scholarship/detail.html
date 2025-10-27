@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{{ scholarship['name'] }}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="card shadow p-4">
+  <p><strong>Amount:</strong> ${{ scholarship['amount'] }}</p>
+  <p><strong>Deadline:</strong> {{ scholarship['deadline'] }}</p>
+  <p><strong>Status:</strong> {{ scholarship['status'] }}</p>
+  {% if scholarship['notes'] %}
+  <p><strong>Notes:</strong> {{ scholarship['notes'] }}</p>
+  {% endif %}
+
+  <a href="{{ url_for('scholarship.update', id=scholarship['id']) }}" class="btn btn-primary">Edit</a>
+  <a href="{{ url_for('scholarship.index') }}" class="btn btn-secondary">Back</a>
+</div>
+{% endblock %}

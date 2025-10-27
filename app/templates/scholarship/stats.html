@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>Scholarship Stats</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="card shadow p-4 mb-3">
+      <h5>Status Summary</h5>
+      <ul>
+        {% for status, count in status_counts.items() %}
+          <li>{{ status }}: {{ count }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card shadow p-4 mb-3">
+      <h5>Total Scholarships</h5>
+      <p>{{ total_scholarships }}</p>
+    </div>
+  </div>
+</div>
+<a href="{{ url_for('scholarship.index') }}" class="btn btn-secondary">Back</a>
+{% endblock %}

@@ -13,6 +13,7 @@ bp = Blueprint('scholarship', __name__, url_prefix='/scholarship')
 @bp.route('/')
 @login_required
 def index():
+    """List all scholarships for the logged-in user."""
     db = get_db()
     scholarships = db.execute(
         'SELECT * FROM scholarship WHERE user_id = ? ORDER BY deadline ASC',
@@ -24,6 +25,7 @@ def index():
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
+    """Add a new scholarship."""
     if request.method == 'POST':
         name = request.form['name']
         amount = request.form['amount']
@@ -42,6 +44,7 @@ def create():
 
 
 def get_scholarship(id):
+    """Get a scholarship by ID for the logged-in user."""
     db = get_db()
     scholarship = db.execute(
         'SELECT * FROM scholarship WHERE id = ? AND user_id = ?', (id, g.user['id'])
@@ -54,6 +57,7 @@ def get_scholarship(id):
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
 def update(id):
+    """Update an existing scholarship."""
     scholarship = get_scholarship(id)
     if request.method == 'POST':
         name = request.form['name']
@@ -64,7 +68,8 @@ def update(id):
 
         db = get_db()
         db.execute(
-            'UPDATE scholarship SET name = ?, amount = ?, deadline = ?, status = ?, notes = ? WHERE id = ? AND user_id = ?',
+            'UPDATE scholarship SET name = ?, amount = ?, deadline = ?, status = ?, notes = ? '
+            'WHERE id = ? AND user_id = ?',
             (name, amount, deadline, status, notes, id, g.user['id'])
         )
         db.commit()
@@ -76,8 +81,32 @@ def update(id):
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):
+    """Delete a scholarship."""
     db = get_db()
     db.execute('DELETE FROM scholarship WHERE id = ? AND user_id = ?', (id, g.user['id']))
     db.commit()
     flash('Scholarship deleted successfully.')
     return redirect(url_for('scholarship.index'))
+
+
+@bp.route('/<int:id>')
+@login_required
+def detail(id):
+    """View detailed information about a single scholarship."""
+    scholarship = get_scholarship(id)
+    return render_template('scholarship/detail.html', scholarship=scholarship)
+
+
+@bp.route('/stats')
+@login_required
+def stats():
+    """Show statistics for the logged-in user's scholarships."""
+    db = get_db()
+    stats_data = db.execute(
+        'SELECT status, COUNT(*) as count FROM scholarship WHERE user_id = ? GROUP BY status',
+        (g.user['id'],)
+    ).fetchall()
+    total = db.execute(
+        'SELECT COUNT(*) as total FROM scholarship WHERE user_id = ?', (g.user['id'],)
+    ).fetchone()['total']
+    return render_template('scholarship/stats.html', stats=stats_data, total=total)
