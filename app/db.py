@@ -2,13 +2,10 @@
 # Class: INF601 - Advanced Programming in Python
 # Project: Mini Project 3 - Scholarship Tracker
 
-
 import sqlite3
 from datetime import datetime
-
 import click
 from flask import current_app, g
-
 
 def get_db():
     if 'db' not in g:
@@ -17,22 +14,18 @@ def get_db():
             detect_types=sqlite3.PARSE_DECLTYPES
         )
         g.db.row_factory = sqlite3.Row
-
+        g.db.execute("PRAGMA foreign_keys = ON")
     return g.db
-
 
 def close_db(e=None):
     db = g.pop('db', None)
-
     if db is not None:
         db.close()
 
 def init_db():
     db = get_db()
-
     with current_app.open_resource('schema.sql') as f:
         db.executescript(f.read().decode('utf8'))
-
 
 @click.command('init-db')
 def init_db_command():
