@@ -69,10 +69,12 @@ Start the Flask development server:
 ```
 flask --app app run
 ```
+
 Open your web browser and go to:
 ```
 http://127.0.0.1:5000/
 ```
+Note: Register a user account via the Register page before adding scholarships.
 You should see the Scholarship Tracker homepage.
 ### Using an IDE(Optional)
 
@@ -87,6 +89,29 @@ If you are using an IDE like PyCharm or VS Code:
 * Click the Run ▶️ button to start the development server.
 
 This lets you run and debug the Flask app with one click.
+
+## Database Schema 
+The application uses SQLite with the following tables:
+
+**User**
+* id (Primary Key)
+* username
+* password_hash
+
+
+
+**Scholarship**
+* id (Primary Key)
+* user_id (Foreign Key → User.id)
+* name
+* amount
+* deadline
+* status
+* notes
+
+Each scholarship is linked to a registered user via user_id, ensuring personalized data for each account.
+
+
 
 ## Project Pages
 The app contains the following pages:
